@@ -1,13 +1,12 @@
 import React from "react";
+import EnrollmentForm from "./compoents/EnrollmentForm"
 
 
 const App = () => {
-    const ClickHandler = () => {
-        alert('Starting React!!');
-    };
+
     return(
         <div>
-            <button type='button' onClick={ClickHandler}>Click React</button>
+            <EnrollmentForm/>
         </div>
     );
 };
