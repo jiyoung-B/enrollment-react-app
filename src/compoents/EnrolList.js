@@ -37,7 +37,7 @@ const EnrolList = (props) => {
         const curItemKey = props.studDetails.key;
         if (curItemKey) {
             items = [...items, props.studDetails];
-            props.setStudDetails({});
+            // props.setStudDetails({});
         }
     }, [props]);
 

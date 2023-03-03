@@ -11,7 +11,7 @@ const App = () => {
     const [pgseats, setPgSeats] = useState(40);
 
     // 과정 등록한 학생들 정보를 저장하는 변수 선언
-    const [studDetails, setStudDetails] = useState({}); // 참가가능 인원수
+    const [studDetails, setStudDetails] = useState({});
 
     const handleChange = (e) => {
         setProgram(e.target.value)
