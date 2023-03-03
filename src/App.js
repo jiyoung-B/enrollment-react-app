@@ -5,14 +5,22 @@ import { useState } from "react";
 // EnrollmentForm이라는 폼을 return하도록
 // 정의된 App 컴퍼넌트
 const App = () => {
-    const [program, setProgram] = useState('UG');
+    const [program, setProgram] = useState('UG'); // 프로그램 종류
+    const [seats, setSeats] = useState(100); // 참가가능 인원수
+    
+    // 참가가능 인원수를 변경하는 함수
     const handleChange = (e) => {
         setProgram(e.target.value)
+    };
+    const setUpdateSeats = (modifySeat) => {
+        setSeats(modifySeat)
     };
 
     return(
         <div className="App">
             <div className="programs">
+                <label>프로그램 참가가능 인원수: {seats}</label>
+                <br/>
                 <label>프로그램 종류 : </label>
                 <select className="appDropDowns"
                     onChange={handleChange} value={program}>
@@ -20,7 +28,8 @@ const App = () => {
                     <option value="PG">석사과정(대학원)</option>
                 </select>
             </div>
-            <EnrollmentForm chosenProgram={program}/>
+            <EnrollmentForm chosenProgram={program}
+                currentSeat={seats} setUpdateSeats={setUpdateSeats}/>
         </div>
     );
 };
