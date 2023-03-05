@@ -25,7 +25,7 @@ const columns = [
 ]
 
 // 테스트용 데이터 삽입 - 컬럼 정의시 사용했던 fieldName으로 값 초기화
-let items = [];
+// let items = [];
 
 //함수, 배열 전달
 const EnrolList = (props) => {
@@ -33,10 +33,11 @@ const EnrolList = (props) => {
     // useEffect 리액트 훅 사용
     // useEffect : 컴퍼넌트 생명주기에 따라 DOM 렌더링 처리
     // props 객체에 값이 존재할때 마다 detailsList 렌더링해서 화면에 표시
+    const [items, setItems] = React.useState([]);
     useEffect(() => {
         const curItemKey = props.studDetails.key;
         if (curItemKey) {
-            items = [...items, props.studDetails];
+            setItems([...items, props.studDetails]);
             // props.setStudDetails({});
         }
     }, [props]);
