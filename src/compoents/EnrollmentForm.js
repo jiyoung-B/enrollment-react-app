@@ -15,6 +15,19 @@ const EnrollmentForm = (props) => {
     const [welcomeMessage, setWelcomeMessage] = useState("");
     const [msgStyle, setMsgStyle] = useState("redOne");
 
+    // 등록/수정 버튼 정의
+    const [btnValue, setBtnValue] = useState("등록하기");
+    const [studKey, setStudKey] = useState(0);
+
+    const handleEdit = (key) => {
+        // 수정할 학생 정보를 함께 표시
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setStudKey(key);
+        setBtnValue('수정하기');
+    };
+
     // 등록하기 버튼 클릭시 이름/성을 환영메세지로 만들어
     // 폼 아래쪽에 나타냄
     const handleSubmit = (e) => {
@@ -27,17 +40,24 @@ const EnrollmentForm = (props) => {
             setMsgStyle('message')
             msg = `환영합니다, ${firstName} ${lastName} 님!!\n` +
                 `${email} 로 등록관련 정보를 발송해드렸습니다`;
+
             // 등록완료된 학생정보에 사용할 key 생성
             const rndKey = Math.floor(1000 + Math.random() * 9000);
+            setStudKey(rndKey);
+
+            // 학생정보 등록시 rndkey를
+            // 학생정보 수정시 studKey를 사용하도록 함
             // 생성한 key와 등록완료된 학생정보를 props에 저장
+            const key = btnValue === '등록하기' ? rndKey : studKey;
             let stud = {
-                key: rndKey, fname : firstName, lname: lastName,
+                key: key, fname : firstName, lname: lastName,
                 program: props.chosenProgram, email: email,
-                edit: <MdEdit className="actionIcon" />,
+                edit: <MdEdit className="actionIcon"
+                onClick={() => handleEdit(key)}/>,
 
                 // 삭제 아이콘 클릭시 대상 학생정보의 키를 넘김
                 delete: <MdDelete className="actionIcon"
-                                  onClick={() => props.handleItemSelection('delete', rndKey)} />
+                                  onClick={() => props.handleItemSelection('delete', key)} />
             }
             props.setStudDetails(stud);
         }
@@ -47,6 +67,17 @@ const EnrollmentForm = (props) => {
 
     const handleInputChange = (setInput, e) => {
         setInput(e.target.value);
+
+    };
+
+    // 취소하기 버튼 클릭시
+    // 폼에 입력된 데이터 제거, 버튼의 글자 바꿈
+    const handleCancel = (e) => {
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setBtnValue('등록하기');
+        e.preventDefault();
 
     };
     return(
@@ -76,9 +107,12 @@ const EnrollmentForm = (props) => {
                                onChange={ e => handleInputChange(setEmail, e)}/>
                     </li>
                     <li id="center-btn">
-                        <button type="submit" id="btnEnrol"
+                        <button type="submit" id="btnEnrol" className="btn"
                                 name="enrol" onClick={handleSubmit}>
-                            등록하기</button>
+                            {btnValue}</button>
+                        <button type="submit" id="btnCancel" className="btn"
+                                name="cancel" onClick={handleCancel}>
+                            취소하기</button>
                     </li>
                     <li>
                         <label id="studentMsg" className={msgStyle}>

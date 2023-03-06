@@ -9,11 +9,12 @@ const App = () => {
     const [program, setProgram] = useState('UG'); // 프로그램 종류
     const [ugseats, setUgSeats] = useState(60);
     const [pgseats, setPgSeats] = useState(40);
-    const [action, setAction] = useState(); // 작업종류 지정
-    const [selItemKey, setSelItemKey] = useState(); //등록정보 키
+
 
     // 과정 등록한 학생들 정보를 저장하는 변수 선언
     const [studDetails, setStudDetails] = useState({});
+    const [action, setAction] = useState(); // 작업종류 지정
+    const [selItemKey, setSelItemKey] = useState(); //등록정보 키
 
     const handleChange = (e) => {
         setProgram(e.target.value)
@@ -35,7 +36,7 @@ const App = () => {
     // 작업종류, 키 설정 함수
     const handleItemSelection = (action, key) => {
         setAction(action);
-        setSelItemKey(selItemKey);
+        setSelItemKey(key);
     }
 
     const restoreSeats = (pgm) => {
