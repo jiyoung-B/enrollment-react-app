@@ -40,7 +40,7 @@ const columns = [
 ]
 
 // 테스트용 데이터 삽입 - 컬럼 정의시 사용했던 fieldName으로 값 초기화
-// let items = [];
+ let items = [];
 
 //함수, 배열 전달
 const EnrolList = (props) => {
@@ -50,24 +50,27 @@ const EnrolList = (props) => {
     // props 객체에 값이 존재할때 마다 detailsList 렌더링해서 화면에 표시
 
     // const [items, setItems] = React.useState([]);
-
     useEffect(() => {
         const curItemKey = props.studDetails.key;
         if (curItemKey) {
 
 
-
-    // items = [...items, props.studDetails];
+    // setItems([...items, props.studDetails]);
+     items = [...items, props.studDetails];
             props.setStudDetails({});
         }
         // 삭제 기능 수행
         if( props.action === 'delete'){
             // 삭제 대상 아이템을 키로 가져옴
+            const deleteItem = items.filter(
+                (item) => item.key === props.selectedItemKey
+            )[0];
 
-
-
-            // setItems([...items, props.studDetails]);
-            // props.setStudDetails({});
+            // 삭제 대상 아이템을 제외하고 다시 items 객체 생성
+            items = items.filter((item) => item !== deleteItem );
+            // items(등록정보들)에서 하나씩 빼와서,
+            // key와 app.js에서 가져온 키가 같은지 하나씩 확인해. 쭉~ 훑어가면서 찾아야해.
+            // 실제 지우는건아니고, 삭제할 아이템 제외하고 새로 보여주는거야.
 
         }
     }, [props]);

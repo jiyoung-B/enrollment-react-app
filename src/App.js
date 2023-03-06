@@ -38,6 +38,8 @@ const App = () => {
         setSelItemKey(selItemKey);
     }
 
+    
+
 
     return(
         <div className="App">
@@ -60,7 +62,8 @@ const App = () => {
                 handleItemSelection={handleItemSelection}/>
             <EnrolList studDetails={studDetails}
                        setStudDetails={setStudDetails}
-                       action={action}/>
+                       selectedItemKey={selItemKey}
+                       action={action} />
         </div>
     );
 };
