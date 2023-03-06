@@ -54,6 +54,11 @@ const EnrolList = (props) => {
             items = [...items, props.studDetails];
             props.setStudDetails({});
         }
+        // 삭제 기능 수행
+        if( props.action === 'delete'){
+            // 삭제 대상 아이템을 키로 가져옴
+
+        }
     }, [props]);
 
 
