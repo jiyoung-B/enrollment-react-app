@@ -51,13 +51,9 @@ const EnrolList = (props) => {
 
     // const [items, setItems] = React.useState([]);
     useEffect(() => {
-        const curItemKey = props.studDetails.key;
-        if (curItemKey) {
-            items = [...items, props.studDetails];
-            props.setStudDetails({});
-        }
         // 삭제 기능 수행
-        if( props.action === 'delete'){
+        // eslint-disable-next-line no-restricted-globals
+        if( props.action === 'delete' && confirm('정말 삭제?')){
             // 삭제 대상 아이템을 키로 가져옴
             const deleteItem = items.filter(
                 (item) => item.key === props.selectedItemKey
@@ -72,7 +68,26 @@ const EnrolList = (props) => {
             props.restoreSeats(deleteItem.program);
 
         }
-    }, [props]);
+        // ??
+
+        // 등록하기와 수정하기를 구분하는 조건 추가
+        const curItemKey = props.studDetails.key;
+        if (curItemKey) {
+            // 전달받은 키와 리스트에서 일치하는 항목의 index를 알아냄
+            const idx = items.findIndex((item) => item.key === curItemKey);
+            if(idx > -1){ // 키와 일치하는 항목이 리스트에 존재한다면
+                // 수정하기로 간주하고 해당항목에 대해 수정 작업 수행
+                // findIndex: key값이랑 일치하는게 존재하면 0 이상 없으면 -1
+                items =items.map((item) => item.key === curItemKey ?
+                props.studDetails : item);
+            }else{ // 키와 일치하는 항목이 리스트에 존재하지 않으면
+                // 등록하기로 간주하고 해당항목은 새로운 항목으로 취급.
+                items = [...items, props.studDetails];
+            }
+            props.setStudDetails({});
+        }
+
+    });
 
 
     return (
