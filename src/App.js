@@ -33,12 +33,17 @@ const App = () => {
     };
 
     // 작업종류, 키 설정 함수
-    const handleItemSelection = () => {
+    const handleItemSelection = (action, key) => {
         setAction(action);
         setSelItemKey(selItemKey);
     }
 
-    
+    const restoreSeats = (pgm) => {
+        pgm === 'UG' ? setUgSeats(ugseats + 1) :
+            setPgSeats(pgseats +1);
+        setAction('');
+    }
+
 
 
     return(
@@ -63,7 +68,8 @@ const App = () => {
             <EnrolList studDetails={studDetails}
                        setStudDetails={setStudDetails}
                        selectedItemKey={selItemKey}
-                       action={action} />
+                       action={action}
+                       restoreSeats={restoreSeats} />
         </div>
     );
 };

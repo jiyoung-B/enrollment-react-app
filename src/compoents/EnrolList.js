@@ -53,10 +53,7 @@ const EnrolList = (props) => {
     useEffect(() => {
         const curItemKey = props.studDetails.key;
         if (curItemKey) {
-
-
-    // setItems([...items, props.studDetails]);
-     items = [...items, props.studDetails];
+            items = [...items, props.studDetails];
             props.setStudDetails({});
         }
         // 삭제 기능 수행
@@ -65,12 +62,14 @@ const EnrolList = (props) => {
             const deleteItem = items.filter(
                 (item) => item.key === props.selectedItemKey
             )[0];
-
             // 삭제 대상 아이템을 제외하고 다시 items 객체 생성
             items = items.filter((item) => item !== deleteItem );
             // items(등록정보들)에서 하나씩 빼와서,
             // key와 app.js에서 가져온 키가 같은지 하나씩 확인해. 쭉~ 훑어가면서 찾아야해.
             // 실제 지우는건아니고, 삭제할 아이템 제외하고 새로 보여주는거야.
+
+            // 삭제한 학생에 대한 참가 가능 인원수 복구
+            props.restoreSeats(deleteItem.program);
 
         }
     }, [props]);
